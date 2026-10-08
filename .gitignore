@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+*.db
+*.db-wal
+*.db-shm
+tts_cache/
+data/raw/
+node_modules/
+dist/
+*.tsbuildinfo
+deploy/

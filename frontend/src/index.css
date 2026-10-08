@@ -1,0 +1,127 @@
+@import "@fontsource/andika/latin-400.css";
+@import "@fontsource/andika/latin-700.css";
+@import "@fontsource/andika/latin-ext-400.css";
+@import "@fontsource/andika/latin-ext-700.css";
+@import "tailwindcss";
+
+/* Jour : le cahier d'écriture. Nuit : le tableau noir. */
+:root {
+  --paper: #eef2ec;
+  --sheet: #fbfcfa;
+  --ink: #1c2b26;
+  --soft: #5b6b64;
+  --line: #c9d4cc;
+  --grid: #4f9a75;
+  --action: #2f7453;
+  --on-action: #ffffff;
+  --seal: #c4321f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #142a22;
+    --sheet: #1b352b;
+    --ink: #eef2e6;
+    --soft: #a3b5aa;
+    --line: #2f4a3e;
+    --grid: #7fc29b;
+    --action: #7fc29b;
+    --on-action: #10231b;
+    --seal: #ff8a73;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-line: var(--line);
+  --color-grid: var(--grid);
+  --color-action: var(--action);
+  --color-on-action: var(--on-action);
+  --color-seal: var(--seal);
+  --font-sans: "Andika", system-ui, sans-serif;
+  --font-han: "Kaiti SC", "STKaiti", "KaiTi", "Noto Serif CJK SC", "Songti SC", "Noto Sans CJK SC", "PingFang SC",
+    "Microsoft YaHei", serif;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:lang(zh-Hans) {
+  font-family: var(--font-han);
+}
+
+:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* Case 田字格 : un caractère par case, croix pointillée au centre */
+.tian {
+  --cell: min(9.5rem, calc((100vw - 3rem) / var(--count)), calc((30rem - 3rem) / var(--count)));
+  display: grid;
+  grid-template-columns: repeat(var(--count), var(--cell));
+  justify-content: center;
+}
+
+.tian > span {
+  display: grid;
+  place-items: center;
+  height: var(--cell);
+  font-size: calc(var(--cell) * 0.72);
+  line-height: 1;
+  background:
+    repeating-linear-gradient(to right, var(--grid) 0 5px, transparent 5px 10px) center / 100% 1px no-repeat,
+    repeating-linear-gradient(to bottom, var(--grid) 0 5px, transparent 5px 10px) center / 1px 100% no-repeat,
+    var(--sheet);
+  border: 1.5px solid var(--grid);
+  margin-left: -1.5px;
+}
+
+.tian > span:first-child {
+  margin-left: 0;
+}
+
+.tian.small {
+  --cell: 3.25rem;
+  justify-content: start;
+}
+
+.reveal {
+  animation: reveal 180ms ease-out;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}
